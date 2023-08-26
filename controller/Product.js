@@ -51,4 +51,35 @@ const fetchAllProducts = async (req, res) => {
     }
 }
 
-export { createProduct, fetchAllProducts }
+
+const fetchProductsByID = async (req, res) => {
+    const { id } = req.params
+
+
+    try {
+        const product = await Product.findById(id)
+        res.status(200).json(product)
+    }
+    catch (err) {
+        res.status(400).json(err)
+    }
+}
+
+
+const updateProduct = async (req, res) => {
+    const { id } = req.params
+
+
+    try {
+        const product = await Product.findByIdAndUpdate(id, req.body, { new: true })
+        res.status(200).json(product)
+    }
+    catch (err) {
+        res.status(400).json(err)
+    }
+}
+
+
+
+
+export { createProduct, fetchAllProducts, fetchProductsByID, updateProduct }
