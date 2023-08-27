@@ -6,7 +6,8 @@ const router = express.Router();
 router.post('/', createOrder)
     .delete('/:id', deleteOrder)
     .patch('/:id', updateOrder)
-    .get('/', fetchOrdersByUser)
+    .get('/user/:userId', fetchOrdersByUser)
+    .get('/', fetchAllOrders)
 
 
 export default router
