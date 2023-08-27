@@ -6,6 +6,8 @@ import brandRouters from './routes/Brands.js'
 import categoryRouters from './routes/Categories.js'
 import userRouters from './routes/User.js'
 import authRouters from './routes/Auth.js'
+import cartRouters from './routes/Cart.js'
+import ordersRouters from './routes/Order.js'
 
 import cors from 'cors'
 
@@ -21,6 +23,8 @@ server.use('/brands', brandRouters)
 server.use('/categories', categoryRouters)
 server.use('/users', userRouters)
 server.use('/auth', authRouters)
+server.use('/cart', cartRouters)
+server.use('/orders', ordersRouters)
 
 
 
