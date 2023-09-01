@@ -13,8 +13,7 @@ const cookieExtractor = function (req) {
   if (req && req.cookies) {
     token = req.cookies["jwt"];
   }
-  token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjA4N2E5MzAzNjYxODM3MTZjNDBiOSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjkzNDg1MDkwfQ.5zZqVoYwd1t5-94s81pI6Ol2gloDMupu2FvFn3kFg0c";
+
   return token;
 };
 
