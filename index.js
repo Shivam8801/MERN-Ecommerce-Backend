@@ -11,6 +11,7 @@ import authRouters from "./routes/Auth.js";
 import cartRouters from "./routes/Cart.js";
 import ordersRouters from "./routes/Order.js";
 import User from "./model/User.js";
+import Order from "./model/Order.js";
 import { Strategy as LocalStrategy } from "passport-local";
 import passport from "passport";
 import session from "express-session";
@@ -32,7 +33,7 @@ const endpointSecret = process.env.ENDPOINT_SECRET;
 server.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  (request, response) => {
+  async (request, response) => {
     const sig = request.headers["stripe-signature"];
 
     let event;
@@ -48,6 +49,12 @@ server.post(
     switch (event.type) {
       case "payment_intent.succeeded":
         const paymentIntentSucceeded = event.data.object;
+
+        const order = await Order.findById(
+          paymentIntentSucceeded.metadata.orderId
+        );
+        order.paymentStatus = "received";
+        order.save();
         // Then define and call a function to handle the event payment_intent.succeeded
         break;
       // ... handle other event types
