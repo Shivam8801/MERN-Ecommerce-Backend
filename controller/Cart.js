@@ -1,57 +1,48 @@
-import Cart from '../model/Cart.js'
+import Cart from "../model/Cart.js";
 
 const fetchCartByUser = async (req, res) => {
-    const { user } = req.query
-    try {
-        const cartItems = await Cart.find({ user: user }).populate('product')
-        res.status(200).json(cartItems)
-    }
-
-    catch (err) {
-        res.status(400).json(err)
-    }
-}
+  const { id } = req.user;
+  try {
+    const cartItems = await Cart.find({ user: id }).populate("product");
+    res.status(200).json(cartItems);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 
 const addToCart = async (req, res) => {
-    const cart = new Cart(req.body)
-    try {
-        const response = await cart.save()
-        const result = await response.populate('product')
+  const { id } = req.user;
+  const cart = new Cart({ ...req.body, user: id });
+  try {
+    const response = await cart.save();
+    const result = await response.populate("product");
 
-        res.status(201).json(result)
-    }
-    catch (err) {
-        res.status(400).json(err)
-    }
-}
-
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 
 const deleteFromCart = async (req, res) => {
-    const { id } = req.params
-    try {
-
-        const doc = await Cart.findByIdAndDelete(id)
-        res.status(200).json(doc)
-    }
-    catch (err) {
-        res.status(400).json(err)
-    }
-}
-
+  const { id } = req.params;
+  try {
+    const doc = await Cart.findByIdAndDelete(id);
+    res.status(200).json(doc);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 
 const updateCart = async (req, res) => {
-    const { id } = req.params
+  const { id } = req.params;
 
+  try {
+    const cart = await Cart.findByIdAndUpdate(id, req.body, { new: true });
+    const result = await cart.populate("product");
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 
-    try {
-        const cart = await Cart.findByIdAndUpdate(id, req.body, { new: true })
-        const result = await cart.populate('product')
-        res.status(200).json(result)
-    }
-    catch (err) {
-        res.status(400).json(err)
-    }
-}
-
-
-export { fetchCartByUser, addToCart, deleteFromCart, updateCart }
+export { fetchCartByUser, addToCart, deleteFromCart, updateCart };

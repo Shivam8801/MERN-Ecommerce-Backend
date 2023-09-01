@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/', createOrder)
     .delete('/:id', deleteOrder)
     .patch('/:id', updateOrder)
-    .get('/user/:userId', fetchOrdersByUser)
+    .get('/own/', fetchOrdersByUser)
     .get('/', fetchAllOrders)
 
 
