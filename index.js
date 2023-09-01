@@ -23,7 +23,7 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import Stripe from "stripe";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 
 // web hooks
 
@@ -66,7 +66,6 @@ var opts = {};
 opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -95,6 +94,12 @@ server.use("/users", isAuth(), userRouters);
 server.use("/auth", authRouters);
 server.use("/cart", isAuth(), cartRouters);
 server.use("/orders", isAuth(), ordersRouters);
+
+// when other routes does not match
+
+server.get("*", (req, res) =>
+  res.sendFile(path.resolve("build", "index.html"))
+);
 
 passport.use(
   "local",
