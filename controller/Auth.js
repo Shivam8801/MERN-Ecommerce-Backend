@@ -42,7 +42,7 @@ const loginUser = async (req, res) => {
   const user = req.user;
   try {
     res
-      .cookie("jwt", req.user.token, {
+      .cookie("jwt", user.token, {
         expires: new Date(Date.now() + 3600000),
         httpOnly: true,
       })
