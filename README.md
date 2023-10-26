@@ -28,4 +28,4 @@ MERN E-Commerce (in Hindi) with Admin Panel, Redux Toolkit, Stripe Payment, Clou
 - Vercel Server deployment
 - Payments using Stripe - PaymentIntent based custom flow
 
-Live Project URL : https://mern-ecommerce-8801.vercel.app
+Live Project URL : https://mern-ecommerce-8801.vercel.app/login
