@@ -64,17 +64,14 @@ const checkAuth = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    try{
+    try {
         res.cookie("jwt", null, {
             expires: new Date(0),
             httpOnly: true,
         }).sendStatus(200);
-    }
-    catch(err)
-    {
+    } catch (err) {
         res.status(400).json(err);
     }
-
 };
 
 export { createUser, loginUser, checkAuth, logout };
