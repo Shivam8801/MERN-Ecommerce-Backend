@@ -68,7 +68,7 @@ const logout = async (req, res) => {
         res.cookie("jwt", null, {
             expires: new Date(0),
             httpOnly: true,
-        }).status(200);
+        }).sendStatus(200);
     } catch (err) {
         res.status(400).json(err);
     }
